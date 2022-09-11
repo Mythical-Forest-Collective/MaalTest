@@ -1,0 +1,7 @@
+{
+  "entrypoint": "com.foc.maaltest.loader.MaalLoader",
+  "name": "MaalLoader",
+  "version": "1.0.0",
+  "dependencies": [
+  ]
+}
