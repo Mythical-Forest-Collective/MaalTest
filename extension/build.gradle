@@ -26,9 +26,10 @@ repositories {
 }
 
 dependencies {
-    compileOnly "com.github.Minestom:Minestom:fc90fe8852"
+    compileOnly "com.github.Minestom:Minestom:7867313290"
 
-    compileOnly 'com.github.Mythical-Forest-Collective:MinecraftAsALibrary:v1.2.1'
+    compileOnly 'com.github.Mythical-Forest-Collective:MinecraftAsALibrary:v2.0.0'
 
     compileOnly files('../minecraft.1.19.2.remapped.jar')
+    compileOnly files('../minecraft.1.19.2.deps.jar')
 }

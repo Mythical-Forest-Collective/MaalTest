@@ -33,5 +33,5 @@ repositories {
 dependencies {
     compileOnly "com.github.Minestom:Minestom:7867313290"
 
-    implementation 'com.github.Mythical-Forest-Collective:MinecraftAsALibrary:v1.2.1'
+    implementation 'com.github.Mythical-Forest-Collective:MinecraftAsALibrary:v2.0.0'
 }

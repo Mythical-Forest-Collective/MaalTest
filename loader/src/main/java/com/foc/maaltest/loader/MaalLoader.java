@@ -22,7 +22,7 @@ public class MaalLoader extends Extension {
         final String McVersion = "1.19.2";
 
         final Path originalServerJar = Path.of(dataDirectory().toString(), McVersion+".original.jar");
-        final Path unpackedJar = Path.of(dataDirectory().toString(), McVersion+".unpacked.jar");
+        final Path depsJar = Path.of(dataDirectory().toString(), McVersion+".deps.jar");
         final Path remappedJar = Path.of(dataDirectory().toString(), McVersion+".remapped.jar");
         final Path mappings = Path.of(dataDirectory().toString(), McVersion+".mappings.tiny.gz");
 
@@ -34,11 +34,8 @@ public class MaalLoader extends Extension {
                 logger.info("Downloading QuiltMC tiny mappings...");
                 MinecraftTransformer.downloadMappings("https://maven.quiltmc.org/repository/release/org/quiltmc/quilt-mappings/1.19.2+build.14/quilt-mappings-1.19.2+build.14-tiny.gz", mappings);
 
-                logger.info("Flattening MC jar, this may take a while...");
-                MinecraftTransformer.flattenMCJar(originalServerJar, unpackedJar);
-
-                logger.info("Remapping the Minecraft server jar...");
-                MinecraftTransformer.remapMinecraftJar(mappings, unpackedJar, remappedJar);
+                logger.info("Remapping and flattening jars...");
+                MinecraftTransformer.flattenAndRemapJar(originalServerJar, mappings, depsJar, remappedJar);
 
                 logger.info("The server jar has been remapped!");
             } catch (IOException e) {
@@ -52,7 +49,7 @@ public class MaalLoader extends Extension {
         URLClassLoader clsloader;
         try {
             Path extension = Path.of(dataDirectory().toString(), "extension.jar");
-            clsloader = MinecraftTransformer.createClassLoader(remappedJar, getClass().getClassLoader(), extension.toUri().toURL());
+            clsloader = MinecraftTransformer.createClassLoader(getClass().getClassLoader(), depsJar.toUri().toURL(), remappedJar.toUri().toURL(), extension.toUri().toURL());
 
         } catch (MalformedURLException e) {
             logger.error("The URL for the remapped jar is invalid! Did something go wrong?", e);
